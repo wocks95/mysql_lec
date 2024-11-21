@@ -8,6 +8,9 @@
 -- greenit 계정 만들기
 CREATE USER 'greenit'@'%' IDENTIFIED BY 'greenit';
 
+-- greenit 계정 삭제하기
+DROP USER 'greenit';
+
 -- 스키마 확인 (데이터베이스 확인)
 SHOW DATABASES;
 
@@ -21,6 +24,9 @@ SELECT * FROM user; -- 사용자 정보가 저장된 user 테이블 조회하기
 -- CREATE DATABASE 데이터베스명;
 -- CREATE SCHEMA 스키마명;
 CREATE DATABASE testdb;
+
+-- testdb 스키마 삭제하기
+DROP DATABASE testdb;
 
 -- 스키마 생성 후 왼쪽 Navigator 에서 새로고침 클릭하면 추가된 스키마를 확인할 수 있다.
 
