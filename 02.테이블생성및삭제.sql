@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS tbl_product CASCADE;
 -- 테이블 만들기
 CREATE TABLE IF NOT EXISTS tbl_product
 (
-	prod_id   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '제품코드',
+    prod_id   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '제품코드',
     prod_name VARCHAR(20) NULL COMMENT '제품이름',
     price     INT(5) COMMENT '제품가격',
     stock     SMALLINT    DEFAULT 0 COMMENT '제품재고' 
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS tbl_product
 
 CREATE TABLE IF NOT EXISTS tbl_order
 (
-	order_id INT NOT NULL AUTO_INCREMENT COMMENT '주문번호',
+    order_id INT NOT NULL AUTO_INCREMENT COMMENT '주문번호',
     order_user VARCHAR(20) COMMENT '주문자',
     prod_id INT COMMENT '제품번호',
     order_dt DATETIME DEFAULT NOW() COMMENT '주문일자',
