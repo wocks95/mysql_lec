@@ -34,6 +34,5 @@ DROP DATABASE testdb;
 -- GRANT 권한종류 PRIVILEGES ON 스키마.객체 TO '사용자'@'호스트';
 GRANT ALL PRIVILEGES ON teatdb.* TO 'greenit'@'%'; -- testdb 스키마의 모든 객체 사용 권한을 부여함
 GRANT ALL PRIVILEGES ON db_company.* TO 'greenit'@'%'; -- 최상위 관리자인 root 계정에서 우선 권한을 부여 후, 서버 만들것
-
 -- greenit 사용자의 권한 확인하기
 SHOW GRANTS FOR 'greenit'@'%';
