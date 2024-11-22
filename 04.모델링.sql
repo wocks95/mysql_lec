@@ -41,12 +41,12 @@ CREATE TABLE IF NOT EXISTS tbl_employee
     emp_id INT NOT NULL AUTO_INCREMENT,
     dept_id INT NOT NULL,
     emp_name VARCHAR(15),
-    position INT,
+    position CHAR(10),
     gender CHAR(1),
     hire_date DATE,
     salary INT,
-    CONSTRAINT pk_employee PRIMARY KEY (emp_id),
-    CONSTRAINT fk_department_employee FOREIGN KEY (dept_id) REFERENCES tbl_department(dept_id)
+    CONSTRAINT pk_emp PRIMARY KEY (emp_id),
+    CONSTRAINT fk_dept_emp FOREIGN KEY (dept_id) REFERENCES tbl_department(dept_id)
 )ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS tbl_proj_emp
@@ -56,6 +56,6 @@ CREATE TABLE IF NOT EXISTS tbl_proj_emp
     emp_id INT NULL,
     proj_id INT NULL,
     CONSTRAINT pk_proj_emp PRIMARY KEY (reg_id),
-    CONSTRAINT fk_employee_proj_emp FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
-    CONSTRAINT fk_project_proj_emp FOREIGN KEY (proj_id) REFERENCES tbl_project(proj_id)
+    CONSTRAINT fk_employee_projemp FOREIGN KEY (emp_id) REFERENCES tbl_employee(emp_id),
+    CONSTRAINT fk_project_projemp FOREIGN KEY (proj_id) REFERENCES tbl_project(proj_id)
 )ENGINE=INNODB;

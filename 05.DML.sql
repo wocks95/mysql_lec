@@ -14,3 +14,24 @@ INSERT INTO tbl_employee VALUES (NULL, 1, '구창민', '과장', 'M', '95-05-01'
 INSERT INTO tbl_employee VALUES (NULL, 2, '김민서', '사원', 'M', '17-09-01', 2500000);
 INSERT INTO tbl_employee VALUES (NULL, 3, '이은영', '부장', 'F', '90-09-01', 5500000);
 INSERT INTO tbl_employee VALUES (NULL, 4, '한성일', '과장', 'M', '93-04-01', 5000000);
+
+-- 영구적으로 저장
+COMMIT;
+
+-- 이전 커밋으로 복귀
+ROLLBACK;
+
+-- 수정/삭제를 위한 테스트 데이터
+INSERT INTO tbl_employee VALUES (NULL, 1, '테스트', '테스트직급', 'F', DATE(NOW()), 500000);
+
+
+-- 행 수정하기
+-- UPDATE 테이블 SET 칼럼 = 값, ... WHERE 조건식; 
+UPDATE tbl_employee SET emp_name = '코알라' WHERE emp_id = 1005;
+UPDATE tbl_employee SET salary = salary * 1.5 WHERE emp_id = 1005; -- WHERE salary = 1005;
+
+-- 행 삭제하기
+-- DELETE FROM 테이블
+DELETE FROM tbl_employee WHERE emp_id >= 1005;
+ROLLBACK;
+
