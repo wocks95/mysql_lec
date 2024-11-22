@@ -1,14 +1,14 @@
 use testdb;
 
-DROP TABLE IF EXISTS tbl_customer;
-DROP TABLE IF EXISTS tbl_bank;
+DROP TABLE IF EXISTS tbl_customer CASCADE;
+DROP TABLE IF EXISTS tbl_bank CASCADE;
 
 
 CREATE TABLE IF NOT EXISTS tbl_bank 
 (
     bank_id VARCHAR(20) NOT NULL COMMENT '은행코드',
     bank_name VARCHAR(30) COMMENT '은행명',
-    CONSTRAINT pk_bank PRIMARY KEY(bank_id) -- 제약 조건을 검
+    CONSTRAINT pk_bank PRIMARY KEY(bank_id) -- 제약 조건을 걸어서 식별하기 용이하게 한다음 수정/삭제를 하게끔 만듬
 )ENGINE=INNODB COMMENT '은행';
 
 CREATE TABLE IF NOT EXISTS tbl_customer
