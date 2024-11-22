@@ -5,11 +5,11 @@
 -- greenit 계정으로 접속하기
 -- 데이터베이스(스키마) 삭제 형식
 -- DROP {DATABASE | SCHEMA} [IF EXISTS] db_name;
--- DROP DATABASE IF EXISTS db_company; 
+DROP DATABASE IF EXISTS db_company; 
 
 -- 데이터베이스(스키마) 생성 형식
 -- CREATE {DATABASE | SCHEMA} [IF EXISTS] db_name [create_option]...
--- CREATE DATABASE IF NOT EXISTS db_company;
+CREATE DATABASE IF NOT EXISTS db_company;
 
 -- 데이터베이스 사용
  USE db_company;
@@ -38,13 +38,13 @@ CREATE TABLE IF NOT EXISTS tbl_project
 
 CREATE TABLE IF NOT EXISTS tbl_employee
 (
-    emp_id INT NOT NULL,
-    position INT,
+    emp_id INT NOT NULL AUTO_INCREMENT,
+    dept_id INT NOT NULL,
     emp_name VARCHAR(15),
+    position INT,
     gender CHAR(1),
     hire_date DATE,
     salary INT,
-    dept_id INT NOT NULL,
     CONSTRAINT pk_employee PRIMARY KEY (emp_id),
     CONSTRAINT fk_department_employee FOREIGN KEY (dept_id) REFERENCES tbl_department(dept_id)
 )ENGINE=INNODB;
