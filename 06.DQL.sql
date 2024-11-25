@@ -63,7 +63,7 @@ SELECT emp_id, dept_id, emp_name, position, gender, hire_date, salary
 -- 11. 직급이 '과장', '부장'이 아닌 사원 조회하기
 SELECT emp_id, dept_id, emp_name, position, gender, hire_date, salary
   FROM tbl_employee
- WHERE position NOT IN ('과장', '부장'); -- position <> '과장' AND position != '부장';
+ WHERE  position <> '과장' AND position != '부장'; -- position NOT IN ('과장', '부장'); 
  
 -- 12. 사원명이 '한'으로 시작하는 사원 조회하기
 SELECT emp_id, dept_id, emp_name, position, gender, hire_date, salary
@@ -133,6 +133,7 @@ SELECT position, COUNT(*)
    FROM tbl_employee
 ORDER BY emp_name ASC; -- ASCending : 오름차순 정렬 (사전 편찬 순) - 디폴트 / DESCending : 내림차순 정렬
 -- DESC : 큰 숫자가 위로, 작은 숫자 일수록 아래로
+
 -- 21. 직급의 오름차순, 동일 직급은 고용일의 내림차순 정렬
 SELECT emp_id, dept_id, emp_name, position, gender, hire_date, salary
   FROM tbl_employee

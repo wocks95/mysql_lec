@@ -30,7 +30,7 @@ SELECT d.dept_id, dept_name, emp_id, e.dept_id, emp_name
     ON d.dept_id = e.dept_id;
 
 -- 3. 대구에 근무하는 사원 조회하기
-SELECT emp_id, e.dept_id, emp_name, position, gender, hire_date, salary
+SELECT emp_id, d.dept_id, emp_name, position, gender, hire_date, salary
   FROM tbl_department d INNER JOIN tbl_employee e 
     ON d.dept_id = e.dept_id -- 사원 조회하기
  WHERE location = '대구'; -- 대구에 근무하는
