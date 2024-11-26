@@ -17,6 +17,10 @@ SELECT d.dept_id, e.dept_id, dept_name, emp_id, emp_name
 /* INNER JOIN */
 -- 두 테이블이 모두 가지고 있는 데이터를 조회할 때 사용
 -- 반드시 올바른 조인 조건을 작성해야 함.
+-- 두 테이블 간에 일치하는 값, 즉 조인 조건을 만족하는 행만 결과로 반환
+-- 만약에 두 테이블 중 하나에 일치하는 데이터가 없다면, 그 행은 결과에 포함되지 않음.
+
+
 
 -- 테이블 작성
 -- FROM "Drive Table" JOIN "Driven Table"
@@ -50,6 +54,9 @@ SELECT menu_code, menu_name, menu_price, c.category_code AS category_name, order
 /* OUTER JOIN */
 -- 어느 한 테이블만 가지고 있는 데이터를 조회할 때 사용.
 -- LEFT [OUTER] JOIN : 첫 번째 테이블(왼쪽에 있음)의 모든 데이터는 항상 조회되는 방식.
+ /* 왼쪽 테이블에 있는 모든 데이터를 포함하고, 오른쪽 테이블의 일치하는 데이터만 결합합니다.
+    그리고 일치하는 값이 없으면 NULL을 반환 */
+
 -- RIGHT [OUTER] JOIN : 두 번째 테이블(오른쪽에 있음)의 모든 데이터는 항상 조회되는 방식.
 -- 값이 0이거나 NULL 값을 가진 값도 조회 됨
 
