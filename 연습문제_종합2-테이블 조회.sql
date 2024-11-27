@@ -24,7 +24,9 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 5        KJD      2013-03-03
 -- 6        NHS      2014-04-04
 -- 10       PSH      2012-05-05
-
+SELECT user_no, user_id, user_regdate
+  FROM tbl_user 
+ WHERE YEAR(user_regdate) >= 2010; 
 
 
 -- 4. 사용자번호와 연락처1, 연락처2를 연결하여 조회하시오. 연락처가 없는 경우 NULL 대신 'None'으로 조회하시오.
@@ -39,7 +41,8 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 8        01066666666
 -- 9        01077777777
 -- 10       01088888888
-
+SELECT user_no, IFNULL(CONCAT(user_mobile1, user_mobile2), 'None') AS contact
+  FROM tbl_user;
 
 
 -- 5. 지역별 사용자수를 조회하시오.
@@ -49,7 +52,9 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 경남   2
 -- 충남   1
 -- 경기   2
-
+SELECT user_addr AS 주소, COUNT(user_no) AS 사용자수
+  FROM tbl_user
+GROUP BY user_addr;
 
 
 -- 6. '서울', '경기'를 제외한 지역별 사용자수를 조회하시오.
@@ -57,7 +62,10 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 경북   1
 -- 경남   2
 -- 충남   1
-
+SELECT user_addr AS 주소, COUNT(user_no) AS 사용자수
+  FROM tbl_user
+ WHERE user_addr NOT IN('서울', '경기')
+GROUP BY user_addr;
   
 
 -- 7. 구매내역이 없는 사용자를 조회하시오.
@@ -67,7 +75,9 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 6     HNS
 -- 7     SDY
 -- 1     YJS
-
+SELECT user_no AS 번호, user_id AS 아이디
+  FROM tbl_user
+ WHERE user_no NOT IN(SELECT user_no FROM tbl_buy);
 
 
 -- 8. 카테고리별 구매횟수를 조회하시오.
@@ -76,7 +86,10 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 의류      2
 -- 서적      2
 -- 전자      4
-
+SELECT p.prod_category, COUNT(b.buy_no)
+  FROM tbl_product p INNER JOIN tbl_buy b
+    ON p.prod_code = b.prod_code 
+GROUP BY p.prod_category;
 
 
 -- 9. 아이디별 구매횟수를 조회하시오.
@@ -86,7 +99,10 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- KJD     1
 -- LHJ     2
 -- PSH     3
-
+SELECT u.user_id AS 아이디, COUNT(b.buy_no) AS 구매횟수
+  FROM tbl_user u INNER JOIN tbl_buy b
+    ON u.user_no = b.user_no
+GROUP BY u.user_id;
 
 
 -- 10. 아이디별 구매횟수를 조회하시오. 구매 이력이 없는 경우 구매횟수는 0으로 조회하고 아이디의 오름차순으로 조회하시오.
@@ -101,8 +117,11 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- PSH     박수홍  3
 -- SDY     신동엽  0
 -- YJS     유재석  0
-
-
+SELECT u.user_id AS 아이디, u.user_name AS 고객명, COUNT(buy_no) AS 구매횟수
+  FROM tbl_user u LEFT JOIN tbl_buy b
+    ON u.user_no = b.user_no
+GROUP BY u.user_id, u.user_name
+ORDER BY u.user_id;
 
 -- 11. 모든 상품의 상품명과 판매횟수를 조회하시오. 판매 이력이 없는 상품은 0으로 조회하시오.
 -- 상품명  판매횟수
@@ -113,7 +132,10 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 모니터  2개
 -- 메모리  1개
 -- 벨트    0개
-
+SELECT p.prod_name AS 상품명, CONCAT(COUNT(buy_no), '개') AS 판매횟수
+  FROM tbl_product p LEFT JOIN tbl_buy b
+    ON p.prod_code = b.prod_code
+GROUP BY p.prod_code, p.prod_name;
 
 
 -- 12. 카테고리가 '전자'인 상품을 구매한 고객의 구매내역을 조회하시오.
@@ -122,7 +144,11 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- 김용만  모니터  200
 -- 박수홍  모니터  1000
 -- 박수홍  메모리  800
-
+SELECT u.user_name AS 고객명, p.prod_name AS 상품명, p.prod_price * b.buy_amount AS 구매액
+  FROM tbl_user u INNER JOIN tbl_buy b
+    ON u.user_no = b.user_no INNER JOIN tbl_product p
+    ON p.prod_code = b.prod_code
+ WHERE p.prod_category = '전자';
 
 
 -- 13. 상품을 구매한 이력이 있는 고객의 아이디, 고객명, 구매횟수, 총구매액을 조회하시오.
@@ -132,15 +158,22 @@ SELECT user_no, user_id, user_mobile1, user_mobile2
 -- PSH     박수홍  3         1860
 -- KJD     김제동  1         75
 -- LHJ     이휘재  2         80
-
-
+SELECT u.user_id, u.user_name, COUNT(b.buy_no) AS 구매횟수, SUM(p.prod_price * b.buy_amount) AS 총구매액
+  FROM tbl_user u INNER JOIN tbl_buy b
+    ON u.user_no = b.user_no INNER JOIN tbl_product p
+    ON p.prod_code = b.prod_code
+GROUP BY u.user_id, u.user_id;
 
 -- 14. 구매횟수가 2회 이상인 고객명과 구매횟수를 조회하시오.
 -- 고객명  구매횟수
 -- 강호동  3
 -- 이휘재  2
 -- 박수홍  3
-
+SELECT u.user_name AS 고객명, COUNT(b.buy_no) AS 구매횟수
+  FROM tbl_user u INNER JOIN tbl_buy b
+    ON u.user_no = b.user_no
+GROUP BY u.user_no, u.user_name  
+HAVING COUNT(b.buy_no) >= 2;
 
 
 -- 15. 어떤 고객이 어떤 상품을 구매했는지 조회하시오. 구매 이력이 없는 고객도 조회하고 아이디로 오름차순 정렬하시오.
